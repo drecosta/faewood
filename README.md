@@ -6,7 +6,7 @@ A tiny forest inside a giant magical bubble. Fly around as a fairy, gather fores
 
 ## Play
 
-- **GitHub Pages:** open the Pages URL shown on the repository (once Pages is enabled).
+- **GitHub Pages:** https://drecosta.github.io/faewood/
 - **Locally:** `npm start`, then visit `http://localhost:8080`.
 - No build step, no CDN: Three.js is vendored in `vendor/` and the game works offline as an installable PWA.
 
