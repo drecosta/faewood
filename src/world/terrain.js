@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { WATER_LEVEL, BUBBLE_RADIUS, ISLAND_RADIUS, STREAM, spots } from './heightfield.js';
 import { heightAt, streamDistance } from './heightfield.js';
 import { mulberry32, clamp, fbm, TAU } from '../core/utils.js';
+import { Models } from '../assets/model-library.js';
 
 const tmpColor = new THREE.Color();
 const soil = new THREE.Color('#6b5a43');
@@ -104,7 +105,7 @@ export function buildTerrain(scene, quality) {
   }));
   group.add(mist);
 
-  const rockGeo = new THREE.DodecahedronGeometry(1, 0);
+  const rockGeo = Models.geometry('environment.rocks.rock', 'Rock', () => new THREE.DodecahedronGeometry(1, 0));
   const rockMat = new THREE.MeshLambertMaterial({ color: 0xffffff, flatShading: true });
   const rocks = new THREE.InstancedMesh(rockGeo, rockMat, 190);
   const dummy = new THREE.Object3D();

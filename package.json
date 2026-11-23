@@ -4,6 +4,16 @@
   "private": true,
   "description": "A magical mobile-first Three.js fairy sandbox inside a bubble",
   "scripts": {
-    "start": "node tools/serve.js"
+    "start": "node tools/serve.js",
+    "models": "node node_modules/esbuild/bin/esbuild tools/export-models.mjs --bundle --platform=node --format=esm --outfile=.models-build.mjs && node .models-build.mjs --verify && rm -f .models-build.mjs",
+    "test:models": "node node_modules/esbuild/bin/esbuild tools/test-models.mjs --bundle --platform=node --format=esm --external:jsdom --outfile=.test-models.mjs && node .test-models.mjs && rm -f .test-models.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "jsdom": "^31.0.1",
+    "three": "0.187.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
   }
 }

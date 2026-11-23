@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { PIECE_BY_ID, canAfford, costText } from './items.js';
 import { heightAt, BUBBLE_RADIUS } from '../world/heightfield.js';
 import { clamp, uid } from '../core/utils.js';
+import { Models } from '../assets/model-library.js';
 
 const M = {
   wood: new THREE.MeshLambertMaterial({ color: 0x9b6d49, flatShading: true }),
@@ -38,6 +39,10 @@ function ball(r, mat, x = 0, y = 0, z = 0, detail = 0) {
 }
 
 export function makePiece(id) {
+  return Models.create('buildings.' + id) || makeProceduralPiece(id);
+}
+
+export function makeProceduralPiece(id) {
   const g = new THREE.Group();
   switch (id) {
     case 'floor':

@@ -11,6 +11,14 @@ import { BuildSystem } from './systems/building.js';
 import { UI } from './ui/hud.js';
 import { ITEMS, PIECE_BY_ID, canAfford } from './systems/items.js';
 import { clamp } from './core/utils.js';
+import { Models } from './assets/model-library.js';
+
+const loading = document.getElementById('loading');
+const loadingText = loading.querySelector('p');
+
+Models.preload((done, total) => {
+  loadingText.textContent = `✦ Loading handcrafted models ${done}/${total}…`;
+}).then(() => {
 
 const saved = Save.load();
 const engine = new Engine(document.getElementById('game'));
@@ -164,7 +172,6 @@ function objective() {
 
 let started = false;
 const gate = document.getElementById('start-gate');
-const loading = document.getElementById('loading');
 document.getElementById('start-btn').addEventListener('click', () => {
   audio.start(); audio.resume();
   gate.classList.add('hidden');
@@ -192,6 +199,7 @@ function tick(now) {
   last = now;
   const look = input.update();
   engine.update(dt);
+  Models.update(dt);
   if (started) {
     player.update(dt, look);
     harvest.update(dt, player.position);
@@ -218,4 +226,9 @@ window.addEventListener('beforeunload', () => {
     buildings: build.serialize(), palette: player.fairy.palette, quality: engine.qualityName,
     sound: audio.enabled, volume: audio.volume, time: engine.time,
   });
+});
+
+}).catch((error) => {
+  console.error('[Faewood] startup failed', error);
+  loadingText.textContent = 'Could not load Faewood — please refresh.';
 });

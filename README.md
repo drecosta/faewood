@@ -8,7 +8,8 @@ A tiny forest inside a giant magical bubble. Fly around as a fairy, gather fores
 
 - **GitHub Pages:** https://drecosta.github.io/faewood/
 - **Locally:** `npm start`, then visit `http://localhost:8080`.
-- No build step, no CDN: Three.js is vendored in `vendor/` and the game works offline as an installable PWA.
+- No runtime build step, no CDN: Three.js is vendored in `vendor/`, models are GLB files in `assets/models/`, and the game works offline as an installable PWA.
+- Want to edit the models in Blender? See [assets/ASSET_GUIDE.md](assets/ASSET_GUIDE.md).
 
 ## Controls
 
@@ -45,13 +46,15 @@ Mobile-first rendering: instanced vegetation, low-poly stylised geometry, capped
 
 ```
 src/
+  assets/   model registry, GLB loader, shared shader materials
   core/     engine, input, save, audio, math helpers
   world/    terrain, water, bubble, instanced vegetation, heightfield
   player/   fairy model + animation, movement/camera controller
   systems/  items & recipes, inventory, harvesting, building
   ui/       HUD, panels, touch controls feedback
-vendor/     Three.js r187 (offline)
-tools/      local dev server and icon generator
+assets/models/  Blender-ready GLBs, readable model map + manifest
+vendor/         Three.js r187 + GLTFLoader (offline)
+tools/          local dev server, icon generator, GLB export tool
 ```
 
-Made with Three.js. No textures or audio files required — ambience is synthesised with WebAudio and all visuals are procedural.
+Made with Three.js. GLB models are generated from the original procedural geometry and can be replaced individually; ambience is still synthesised with WebAudio and no external textures are required.

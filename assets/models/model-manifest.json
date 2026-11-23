@@ -1,0 +1,313 @@
+{
+  "generator": "tools/export-models.mjs",
+  "three": "r187",
+  "count": 51,
+  "models": {
+    "characters.fairy": {
+      "id": "characters.fairy",
+      "path": "./assets/models/characters/fairy/fairy.glb",
+      "node": "Body",
+      "bytes": 88580
+    },
+    "buildings.floor": {
+      "id": "buildings.floor",
+      "path": "./assets/models/buildings/platforms/floor.glb",
+      "node": "Root",
+      "bytes": 11292
+    },
+    "buildings.floorRound": {
+      "id": "buildings.floorRound",
+      "path": "./assets/models/buildings/platforms/floorRound.glb",
+      "node": "Root",
+      "bytes": 26164
+    },
+    "buildings.floorGlass": {
+      "id": "buildings.floorGlass",
+      "path": "./assets/models/buildings/platforms/floorGlass.glb",
+      "node": "Root",
+      "bytes": 9248
+    },
+    "buildings.wall": {
+      "id": "buildings.wall",
+      "path": "./assets/models/buildings/walls/wall.glb",
+      "node": "Root",
+      "bytes": 12488
+    },
+    "buildings.wallWindow": {
+      "id": "buildings.wallWindow",
+      "path": "./assets/models/buildings/walls/wallWindow.glb",
+      "node": "Root",
+      "bytes": 11240
+    },
+    "buildings.halfWall": {
+      "id": "buildings.halfWall",
+      "path": "./assets/models/buildings/walls/halfWall.glb",
+      "node": "Root",
+      "bytes": 11196
+    },
+    "buildings.pillar": {
+      "id": "buildings.pillar",
+      "path": "./assets/models/buildings/walls/pillar.glb",
+      "node": "Root",
+      "bytes": 5216
+    },
+    "buildings.roof": {
+      "id": "buildings.roof",
+      "path": "./assets/models/buildings/roofs/roof.glb",
+      "node": "Root",
+      "bytes": 7976
+    },
+    "buildings.roofCone": {
+      "id": "buildings.roofCone",
+      "path": "./assets/models/buildings/roofs/roofCone.glb",
+      "node": "Root",
+      "bytes": 8084
+    },
+    "buildings.roofMoss": {
+      "id": "buildings.roofMoss",
+      "path": "./assets/models/buildings/roofs/roofMoss.glb",
+      "node": "Root",
+      "bytes": 36708
+    },
+    "buildings.door": {
+      "id": "buildings.door",
+      "path": "./assets/models/buildings/bridges/door.glb",
+      "node": "Root",
+      "bytes": 10848
+    },
+    "buildings.ladder": {
+      "id": "buildings.ladder",
+      "path": "./assets/models/buildings/bridges/ladder.glb",
+      "node": "Root",
+      "bytes": 27324
+    },
+    "buildings.stairs": {
+      "id": "buildings.stairs",
+      "path": "./assets/models/buildings/bridges/stairs.glb",
+      "node": "Root",
+      "bytes": 14892
+    },
+    "buildings.bridge": {
+      "id": "buildings.bridge",
+      "path": "./assets/models/buildings/bridges/bridge.glb",
+      "node": "Root",
+      "bytes": 49720
+    },
+    "buildings.balcony": {
+      "id": "buildings.balcony",
+      "path": "./assets/models/buildings/bridges/balcony.glb",
+      "node": "Root",
+      "bytes": 11260
+    },
+    "buildings.bed": {
+      "id": "buildings.bed",
+      "path": "./assets/models/buildings/furniture/bed.glb",
+      "node": "Root",
+      "bytes": 11064
+    },
+    "buildings.table": {
+      "id": "buildings.table",
+      "path": "./assets/models/buildings/furniture/table.glb",
+      "node": "Root",
+      "bytes": 9916
+    },
+    "buildings.chair": {
+      "id": "buildings.chair",
+      "path": "./assets/models/buildings/furniture/chair.glb",
+      "node": "Root",
+      "bytes": 12640
+    },
+    "buildings.shelf": {
+      "id": "buildings.shelf",
+      "path": "./assets/models/buildings/furniture/shelf.glb",
+      "node": "Root",
+      "bytes": 16140
+    },
+    "buildings.wardrobe": {
+      "id": "buildings.wardrobe",
+      "path": "./assets/models/buildings/furniture/wardrobe.glb",
+      "node": "Root",
+      "bytes": 13856
+    },
+    "buildings.lanternPost": {
+      "id": "buildings.lanternPost",
+      "path": "./assets/models/buildings/furniture/lanternPost.glb",
+      "node": "Root",
+      "bytes": 10852
+    },
+    "buildings.crystalLamp": {
+      "id": "buildings.crystalLamp",
+      "path": "./assets/models/buildings/furniture/crystalLamp.glb",
+      "node": "Root",
+      "bytes": 8776
+    },
+    "buildings.flowerBox": {
+      "id": "buildings.flowerBox",
+      "path": "./assets/models/buildings/furniture/flowerBox.glb",
+      "node": "Root",
+      "bytes": 29540
+    },
+    "buildings.plantPot": {
+      "id": "buildings.plantPot",
+      "path": "./assets/models/buildings/furniture/plantPot.glb",
+      "node": "Root",
+      "bytes": 9292
+    },
+    "buildings.mushroomSeat": {
+      "id": "buildings.mushroomSeat",
+      "path": "./assets/models/buildings/furniture/mushroomSeat.glb",
+      "node": "Root",
+      "bytes": 17200
+    },
+    "buildings.windChime": {
+      "id": "buildings.windChime",
+      "path": "./assets/models/buildings/furniture/windChime.glb",
+      "node": "Root",
+      "bytes": 17996
+    },
+    "buildings.rug": {
+      "id": "buildings.rug",
+      "path": "./assets/models/buildings/platforms/rug.glb",
+      "node": "Root",
+      "bytes": 28012
+    },
+    "buildings.sign": {
+      "id": "buildings.sign",
+      "path": "./assets/models/buildings/furniture/sign.glb",
+      "node": "Root",
+      "bytes": 8420
+    },
+    "resources.wood": {
+      "id": "resources.wood",
+      "path": "./assets/models/resources/wood.glb",
+      "node": "Root",
+      "bytes": 3480
+    },
+    "resources.leaves": {
+      "id": "resources.leaves",
+      "path": "./assets/models/resources/leaves.glb",
+      "node": "Root",
+      "bytes": 4476
+    },
+    "resources.flowers": {
+      "id": "resources.flowers",
+      "path": "./assets/models/resources/flowers.glb",
+      "node": "Root",
+      "bytes": 4976
+    },
+    "resources.mushrooms": {
+      "id": "resources.mushrooms",
+      "path": "./assets/models/resources/mushrooms.glb",
+      "node": "Root",
+      "bytes": 7604
+    },
+    "resources.stones": {
+      "id": "resources.stones",
+      "path": "./assets/models/resources/stones.glb",
+      "node": "Root",
+      "bytes": 6012
+    },
+    "resources.crystals": {
+      "id": "resources.crystals",
+      "path": "./assets/models/resources/crystals.glb",
+      "node": "Root",
+      "bytes": 2980
+    },
+    "resources.seeds": {
+      "id": "resources.seeds",
+      "path": "./assets/models/resources/seeds.glb",
+      "node": "Root",
+      "bytes": 3444
+    },
+    "resources.dust": {
+      "id": "resources.dust",
+      "path": "./assets/models/resources/dust.glb",
+      "node": "Root",
+      "bytes": 3196
+    },
+    "resources.dew": {
+      "id": "resources.dew",
+      "path": "./assets/models/resources/dew.glb",
+      "node": "Root",
+      "bytes": 2976
+    },
+    "environment.trees.trunk": {
+      "id": "environment.trees.trunk",
+      "path": "./assets/models/environment/trees/tree-trunk.glb",
+      "node": "Trunk",
+      "bytes": 2708
+    },
+    "environment.trees.crown": {
+      "id": "environment.trees.crown",
+      "path": "./assets/models/environment/trees/tree-crown.glb",
+      "node": "Crown",
+      "bytes": 3164
+    },
+    "environment.trees.crownCone": {
+      "id": "environment.trees.crownCone",
+      "path": "./assets/models/environment/trees/tree-crown-cone.glb",
+      "node": "CrownCone",
+      "bytes": 2236
+    },
+    "environment.plants.grass": {
+      "id": "environment.plants.grass",
+      "path": "./assets/models/environment/plants/grass.glb",
+      "node": "Grass",
+      "bytes": 1852
+    },
+    "environment.plants.flowerStem": {
+      "id": "environment.plants.flowerStem",
+      "path": "./assets/models/environment/plants/flower-stem.glb",
+      "node": "Stem",
+      "bytes": 2312
+    },
+    "environment.plants.flowerHead": {
+      "id": "environment.plants.flowerHead",
+      "path": "./assets/models/environment/plants/flower-head.glb",
+      "node": "Head",
+      "bytes": 3168
+    },
+    "environment.plants.bush": {
+      "id": "environment.plants.bush",
+      "path": "./assets/models/environment/plants/bush.glb",
+      "node": "Bush",
+      "bytes": 3164
+    },
+    "environment.mushrooms.stem": {
+      "id": "environment.mushrooms.stem",
+      "path": "./assets/models/environment/mushrooms/stem.glb",
+      "node": "Stem",
+      "bytes": 2716
+    },
+    "environment.mushrooms.cap": {
+      "id": "environment.mushrooms.cap",
+      "path": "./assets/models/environment/mushrooms/cap.glb",
+      "node": "Cap",
+      "bytes": 3440
+    },
+    "environment.crystals.shard": {
+      "id": "environment.crystals.shard",
+      "path": "./assets/models/environment/crystals/shard.glb",
+      "node": "Shard",
+      "bytes": 1960
+    },
+    "environment.rocks.rock": {
+      "id": "environment.rocks.rock",
+      "path": "./assets/models/environment/rocks/rock.glb",
+      "node": "Rock",
+      "bytes": 4692
+    },
+    "environment.trees.ancient": {
+      "id": "environment.trees.ancient",
+      "path": "./assets/models/environment/trees/ancient-tree.glb",
+      "node": "AncientTree",
+      "bytes": 55196
+    },
+    "environment.rocks.cave": {
+      "id": "environment.rocks.cave",
+      "path": "./assets/models/environment/rocks/cave.glb",
+      "node": "Cave",
+      "bytes": 16020
+    }
+  }
+}

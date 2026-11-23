@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { heightAt, WATER_LEVEL, streamDistance, spots } from '../world/heightfield.js';
 import { mulberry32, TAU } from '../core/utils.js';
+import { Models } from '../assets/model-library.js';
 
 const TYPES = {
   wood:      { color: 0xffc98a, base: 'wood',      amount: [2, 3], name: 'Woodpile' },
@@ -26,8 +27,44 @@ function glowTexture() {
   return new THREE.CanvasTexture(c);
 }
 
-function makeNodeMesh(type, rng, mats, geos) {
+export function prepareHarvestAssets() {
+  return {
+    geos: {
+      log: new THREE.CylinderGeometry(0.13, 0.15, 0.9, 6),
+      leaf: new THREE.IcosahedronGeometry(0.3, 0),
+      stem: new THREE.CylinderGeometry(0.08, 0.1, 0.4, 5),
+      cap: new THREE.SphereGeometry(0.32, 8, 5, 0, TAU, 0, Math.PI / 2),
+      rock: new THREE.DodecahedronGeometry(0.5, 0),
+      crystal: new THREE.OctahedronGeometry(0.4, 0),
+      seed: new THREE.ConeGeometry(0.12, 0.32, 5),
+      spark: new THREE.OctahedronGeometry(0.1, 0),
+    },
+    mats: {
+      bark: new THREE.MeshLambertMaterial({ name: 'Bark', color: 0x9a6c48 }),
+      leaf: new THREE.MeshLambertMaterial({ name: 'Leaf', color: 0x5fae5c }),
+      stem: new THREE.MeshLambertMaterial({ name: 'Stem', color: 0xeee0c8 }),
+      stone: new THREE.MeshLambertMaterial({ name: 'Stone', color: 0x929d9a }),
+      crystal: new THREE.MeshStandardMaterial({ name: 'Crystal', color: 0xa8e2ff, emissive: 0x4c9ad0, emissiveIntensity: 1.3, roughness: 0.25 }),
+      seed: new THREE.MeshLambertMaterial({ name: 'Seed', color: 0xdfc77d }),
+      dust: new THREE.MeshBasicMaterial({ name: 'Dust', color: 0xfff2b0 }),
+      flower: ['#f2a0c7', '#ffe08a', '#b9a5f5', '#f6f1ff', '#ffa979'].map((c) => new THREE.MeshLambertMaterial({ name: 'Flower', color: c, emissive: 0x222018 })),
+      cap: ['#d46873', '#e59c70', '#c36bc0'].map((c) => new THREE.MeshLambertMaterial({ name: 'Cap', color: c })),
+    },
+  };
+}
+
+export function makeNodeMesh(type, rng, mats, geos) {
+  const model = Models.create('resources.' + type);
+  if (model) {
+    model.scale.setScalar(0.85 + rng() * 0.4);
+    return model;
+  }
+  return makeProceduralNodeMesh(type, rng, mats, geos);
+}
+
+export function makeProceduralNodeMesh(type, rng, mats, geos) {
   const g = new THREE.Group();
+  g.name = 'Root';
   const s = 0.85 + rng() * 0.4;
   switch (type) {
     case 'wood':
@@ -121,27 +158,9 @@ export class HarvestSystem {
   }
 
   _prepareAssets() {
-    this.geos = {
-      log: new THREE.CylinderGeometry(0.13, 0.15, 0.9, 6),
-      leaf: new THREE.IcosahedronGeometry(0.3, 0),
-      stem: new THREE.CylinderGeometry(0.08, 0.1, 0.4, 5),
-      cap: new THREE.SphereGeometry(0.32, 8, 5, 0, TAU, 0, Math.PI / 2),
-      rock: new THREE.DodecahedronGeometry(0.5, 0),
-      crystal: new THREE.OctahedronGeometry(0.4, 0),
-      seed: new THREE.ConeGeometry(0.12, 0.32, 5),
-      spark: new THREE.OctahedronGeometry(0.1, 0),
-    };
-    this.mats = {
-      bark: new THREE.MeshLambertMaterial({ color: 0x9a6c48 }),
-      leaf: new THREE.MeshLambertMaterial({ color: 0x5fae5c }),
-      stem: new THREE.MeshLambertMaterial({ color: 0xeee0c8 }),
-      stone: new THREE.MeshLambertMaterial({ color: 0x929d9a }),
-      crystal: new THREE.MeshStandardMaterial({ color: 0xa8e2ff, emissive: 0x4c9ad0, emissiveIntensity: 1.3, roughness: 0.25 }),
-      seed: new THREE.MeshLambertMaterial({ color: 0xdfc77d }),
-      dust: new THREE.MeshBasicMaterial({ color: 0xfff2b0 }),
-      flower: ['#f2a0c7', '#ffe08a', '#b9a5f5', '#f6f1ff', '#ffa979'].map((c) => new THREE.MeshLambertMaterial({ color: c, emissive: 0x222018 })),
-      cap: ['#d46873', '#e59c70', '#c36bc0'].map((c) => new THREE.MeshLambertMaterial({ color: c })),
-    };
+    const assets = prepareHarvestAssets();
+    this.geos = assets.geos;
+    this.mats = assets.mats;
     this.glowMats = {};
     for (const [k, v] of Object.entries(TYPES)) {
       this.glowMats[k] = new THREE.SpriteMaterial({
