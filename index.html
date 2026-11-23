@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#0d1f2d" />
+  <meta name="description" content="Faewood - a magical miniature forest inside a bubble. Fly as a fairy, gather treasures and build your dream treehouse." />
+  <title>Faewood · Fairy Sanctuary</title>
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" type="image/svg+xml" href="./assets/icon.svg" />
+  <link rel="stylesheet" href="./style.css" />
+  <script type="importmap">
+    { "imports": { "three": "./vendor/three.module.js" } }
+  </script>
+</head>
+<body>
+  <canvas id="game"></canvas>
+
+  <div id="ui">
+    <header id="topbar">
+      <div class="pill" id="clock"><span class="ico">◐</span><span id="time-label">Dawn</span></div>
+      <div class="pill energy-pill" title="Flight energy">
+        <span class="ico">✦</span>
+        <div class="bar"><div id="energy-fill"></div></div>
+      </div>
+      <div class="pill" id="health-pill" title="Fairy glow"><span class="ico">♥</span><span id="health-label">100</span></div>
+      <button class="pill btn-icon" id="menu-btn" aria-label="Menu">☰</button>
+    </header>
+
+    <div id="objective" class="objective">
+      <span class="objective-star">✧</span>
+      <span id="objective-text">Explore the bubble and gather wood</span>
+    </div>
+
+    <div id="hint" class="hint hidden"></div>
+
+    <div id="joystick" class="joystick" aria-label="Movement joystick">
+      <div class="joy-ring"></div>
+      <div id="joy-knob" class="joy-knob"></div>
+    </div>
+
+    <div id="actions">
+      <button id="btn-fly" class="action fly" aria-label="Fly (hold)"><span class="glyph">✦</span><small>FLY</small></button>
+      <button id="btn-jump" class="action jump" aria-label="Jump"><span class="glyph">↑</span><small>JUMP</small></button>
+      <button id="btn-interact" class="action interact" aria-label="Interact"><span class="glyph">✧</span><small>TAKE</small></button>
+      <button id="btn-bag" class="action bag" aria-label="Inventory"><span class="glyph">▦</span><small>BAG</small></button>
+      <button id="btn-build" class="action build" aria-label="Build"><span class="glyph">⌂</span><small>BUILD</small></button>
+    </div>
+
+    <div id="buildbar" class="buildbar hidden">
+      <div class="buildbar-row">
+        <button class="tool" id="tool-rotate-l" title="Rotate left">↺</button>
+        <button class="tool" id="tool-rotate-r" title="Rotate right">↻</button>
+        <button class="tool" id="tool-up" title="Raise">＋</button>
+        <button class="tool" id="tool-down" title="Lower">－</button>
+        <button class="tool" id="tool-snap" title="Toggle grid snap">▦</button>
+        <button class="tool" id="tool-move" title="Move an existing piece">✥</button>
+        <button class="tool" id="tool-remove" title="Remove mode">✕</button>
+      </div>
+      <div class="buildbar-row bottom">
+        <div id="build-info" class="build-info">Choose a piece</div>
+        <button id="tool-place" class="primary">PLACE</button>
+        <button id="tool-cancel" class="tool">EXIT</button>
+      </div>
+    </div>
+
+    <div id="panel" class="panel hidden">
+      <div class="panel-head">
+        <div class="tabs" id="tabs">
+          <button data-tab="inventory" class="tab active">Bag</button>
+          <button data-tab="craft" class="tab">Craft</button>
+          <button data-tab="build" class="tab">Build</button>
+          <button data-tab="style" class="tab">Fairy</button>
+          <button data-tab="settings" class="tab">Menu</button>
+        </div>
+        <button id="panel-close" class="close">✕</button>
+      </div>
+      <div id="panel-body" class="panel-body"></div>
+    </div>
+
+    <div id="toasts"></div>
+    <div id="loading" class="loading">
+      <div class="sparkle-ring"></div>
+      <h1>Faewood</h1>
+      <p>Growing your little world…</p>
+    </div>
+    <div id="start-gate" class="start-gate hidden">
+      <div class="gate-card">
+        <div class="gate-star">✦</div>
+        <h1>Faewood</h1>
+        <p>A tiny forest, a tiny fairy, and a whole world to dream up.</p>
+        <ul>
+          <li>◉ Drag the <b>left stick</b> to move · drag the screen to look</li>
+          <li>✦ <b>Hold FLY</b> to take off · tap JUMP to hop</li>
+          <li>✧ Tap <b>TAKE</b> near glowing things to collect them</li>
+          <li>⌂ Use <b>BUILD</b> to grow your treehouse</li>
+        </ul>
+        <button id="start-btn" class="primary big">ENTER THE BUBBLE</button>
+        <small>PC: WASD move · Space jump/hold fly · E take · B build · I bag · drag to look</small>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "faewood",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A magical mobile-first Three.js fairy sandbox inside a bubble",
+  "scripts": {
+    "start": "node tools/serve.js"
+  }
+}
