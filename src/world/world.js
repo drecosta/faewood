@@ -2,8 +2,8 @@ import * as THREE from 'three';
 import { buildTerrain } from './terrain.js';
 import { buildVegetation } from './vegetation.js';
 import { buildBubble } from './bubble.js';
-import { BUBBLE_RADIUS, heightAt, landHeight } from './heightfield.js';
-import { clamp } from '../core/utils.js';
+import { CollisionWorld } from '../systems/collision.js';
+import { BUBBLE_RADIUS, landHeight } from './heightfield.js';
 
 export class World {
   constructor(engine) {
@@ -13,6 +13,9 @@ export class World {
     this.terrain = buildTerrain(this.group, engine.quality);
     this.vegetation = buildVegetation(this.group, engine.quality);
     this.bubble = buildBubble(this.group, engine.quality);
+    this.collision = new CollisionWorld();
+    for (const c of this.terrain.colliders) this.collision.addCircle(c.x, c.z, c.r, c.y0, c.y1, c.support);
+    for (const c of this.vegetation.colliders) this.collision.addCircle(c.x, c.z, c.r, c.y0, c.y1, c.support);
     this.elapsed = 0;
   }
 
@@ -23,14 +26,6 @@ export class World {
     if (r > BUBBLE_RADIUS - 4) {
       const k = (BUBBLE_RADIUS - 4) / r;
       pos.x *= k; pos.z *= k;
-    }
-    const dx = pos.x;
-    const dz = pos.z + 1.5;
-    const d = Math.hypot(dx, dz);
-    if (pos.y < 14 && d < 2.9 + radius) {
-      const k = (2.9 + radius) / (d || 1);
-      pos.x = dx * k;
-      pos.z = dz * k - 1.5;
     }
     if (pos.y < -1.5) pos.y = -1.5;
   }

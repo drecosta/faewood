@@ -1,4 +1,4 @@
-const CACHE = 'faewood-v1';
+const CACHE = 'faewood-v2';
 const FILES = [
   './', './index.html', './style.css', './manifest.webmanifest',
   './assets/icon.svg', './assets/icon-192.png', './assets/icon-512.png',
@@ -6,7 +6,7 @@ const FILES = [
   './src/main.js', './src/core/engine.js', './src/core/input.js', './src/core/save.js', './src/core/audio.js', './src/core/utils.js',
   './src/world/world.js', './src/world/terrain.js', './src/world/vegetation.js', './src/world/bubble.js', './src/world/heightfield.js',
   './src/player/fairy.js', './src/player/controller.js',
-  './src/systems/items.js', './src/systems/inventory.js', './src/systems/harvest.js', './src/systems/building.js',
+  './src/systems/items.js', './src/systems/inventory.js', './src/systems/harvest.js', './src/systems/building.js', './src/systems/collision.js',
   './src/ui/hud.js',
 ];
 

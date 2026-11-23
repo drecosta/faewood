@@ -31,6 +31,7 @@ Pinch to zoom on mobile.
 - Craft planks, rope, glass, lanterns, cushions and bottled fairy dust.
 - Build with 28 pieces across five categories: decks, walls, windows, roofs, ladders, stairs, rope bridges, balconies, furniture, lanterns and decorations.
 - Building features a live ghost preview, grid snapping or free placement, 90° rotation, half-unit vertical adjustment, surface snapping onto existing pieces, 50%-refund removal, and repositioning of placed pieces.
+- Solid collision: trees, rocks, crystals and the cave block movement; built walls and furniture are solid, while decks and roofs can be walked on and also stop you from flying up through them.
 - Flight consumes energy which regenerates on the ground. Falling from high up costs glow.
 - Customise skin, hair, dress and wing glow.
 - Day/night cycle with stars, fireflies, and dynamic lighting.

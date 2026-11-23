@@ -28,7 +28,6 @@ const inventory = new Inventory(saved?.inventory ?? { wood: 3, leaves: 2 });
 const harvest = new HarvestSystem(engine.scene, engine);
 harvest.restore(saved?.harvest);
 const player = new PlayerController(engine, world, input, audio, saved?.palette);
-player.restore(saved?.player);
 
 let ui;
 const build = new BuildSystem(engine, world, inventory, audio, () => refreshUI());
@@ -179,6 +178,7 @@ build.restore(saved?.buildings?.length ? saved.buildings : [
   { id: 'starter-1', pieceId: 'floor', x: 0, y: 3.5, z: 2, r: 0 },
   { id: 'starter-2', pieceId: 'floor', x: 2, y: 3.5, z: 2, r: 0 },
 ]);
+player.restore(saved?.player);
 refreshUI();
 loading.classList.add('hidden');
 gate.classList.remove('hidden');

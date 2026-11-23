@@ -280,6 +280,12 @@ export class BuildSystem {
     this.engine.scene.add(this.ghost);
   }
 
+  _updateBox(b) {
+    b.obj.updateMatrixWorld(true);
+    b.box = new THREE.Box3().setFromObject(b.obj);
+    this.world.collision.addBox(b.box, b);
+  }
+
   rotate(dir) {
     if (!this.active) return;
     this.rot = (this.rot + dir * Math.PI / 2 + Math.PI * 4) % (Math.PI * 2);
@@ -370,6 +376,8 @@ export class BuildSystem {
       b.obj.position.copy(this.target);
       b.obj.rotation.y = this.rot;
       b.x = this.target.x; b.y = this.target.y; b.z = this.target.z; b.r = this.rot;
+      this.world.collision.removeBox(b);
+      this._updateBox(b);
       this._moving = null;
       this.audio.sfx('place');
       this.end();
@@ -379,9 +387,11 @@ export class BuildSystem {
     obj.position.copy(this.target);
     obj.rotation.y = this.rot;
     this.group.add(obj);
-    this.pieces.push({
+    const record = {
       id: uid(), pieceId: this.pieceId, x: this.target.x, y: this.target.y, z: this.target.z, r: this.rot, obj,
-    });
+    };
+    this.pieces.push(record);
+    this._updateBox(record);
     if (piece.light) {
       const light = new THREE.PointLight(0xffd98a, 1.2, 8, 2);
       light.position.y = Math.min(2.2, piece.h + 0.4);
@@ -401,6 +411,7 @@ export class BuildSystem {
     const piece = PIECE_BY_ID[b.pieceId];
     if (this.mode === 'remove') {
       for (const [k, v] of Object.entries(piece.cost)) this.inventory.add(k, Math.max(1, Math.floor(v / 2)));
+      this.world.collision.removeBox(b);
       this.group.remove(b.obj);
       this.pieces.splice(idx, 1);
       this.selection.visible = false; this.hovered = null;
@@ -429,13 +440,16 @@ export class BuildSystem {
     if (!Array.isArray(list)) return;
     this.pieces.forEach((b) => this.group.remove(b.obj));
     this.pieces = [];
+    this.world.collision.clearBoxes();
     for (const s of list) {
       if (!PIECE_BY_ID[s.pieceId]) continue;
       const obj = makePiece(s.pieceId);
       obj.position.set(s.x, s.y, s.z);
       obj.rotation.y = s.r || 0;
       this.group.add(obj);
-      this.pieces.push({ id: s.id || uid(), pieceId: s.pieceId, x: s.x, y: s.y, z: s.z, r: s.r || 0, obj });
+      const record = { id: s.id || uid(), pieceId: s.pieceId, x: s.x, y: s.y, z: s.z, r: s.r || 0, obj };
+      this.pieces.push(record);
+      this._updateBox(record);
       if (PIECE_BY_ID[s.pieceId].light) {
         const l = new THREE.PointLight(0xffd98a, 1.2, 8, 2);
         l.position.y = 2.2; obj.add(l);

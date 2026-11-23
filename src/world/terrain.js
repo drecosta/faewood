@@ -108,6 +108,7 @@ export function buildTerrain(scene, quality) {
   const rockMat = new THREE.MeshLambertMaterial({ color: 0xffffff, flatShading: true });
   const rocks = new THREE.InstancedMesh(rockGeo, rockMat, 190);
   const dummy = new THREE.Object3D();
+  const colliders = [];
   let ri = 0;
   for (let i = 0; i < 500 && ri < 190; i++) {
     const a = rng() * TAU, r = 8 + rng() * 42;
@@ -120,7 +121,9 @@ export function buildTerrain(scene, quality) {
     dummy.scale.set(s, s * (0.6 + rng() * 0.6), s);
     dummy.updateMatrix(); rocks.setMatrixAt(ri, dummy.matrix);
     tmpColor.set(rng() > 0.75 ? '#8b9c9b' : '#7e857c').multiplyScalar(0.85 + rng() * 0.3);
-    rocks.setColorAt(ri, tmpColor); ri++;
+    rocks.setColorAt(ri, tmpColor);
+    colliders.push({ x, z, r: s * 0.62, y0: h, y1: h + s * 1.2, support: true });
+    ri++;
   }
   rocks.count = ri;
   rocks.instanceMatrix.needsUpdate = true;
@@ -141,7 +144,7 @@ export function buildTerrain(scene, quality) {
   group.add(lilies);
 
   return {
-    group,
+    group, colliders,
     update(dt, elapsed, night) {
       fallMat.uniforms.uTime.value = elapsed;
       fallMat.uniforms.uNight.value = night;

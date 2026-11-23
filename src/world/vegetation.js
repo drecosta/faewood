@@ -44,11 +44,13 @@ export function buildVegetation(scene, quality) {
   group.name = 'vegetation';
   scene.add(group);
   const uniforms = { uTime: { value: 0 } };
+  const colliders = [];
   const density = quality.vegetation;
   const rng = mulberry32(20240520);
 
   const ancient = new THREE.Group();
   ancient.position.set(0, 2.2, -1.5);
+  colliders.push({ x: 0, z: -1.5, r: 2.9, y0: 2.2, y1: 18 });
   const barkMat = new THREE.MeshLambertMaterial({ color: 0x7d5b43, flatShading: true });
   const trunk = new THREE.Mesh(new THREE.CylinderGeometry(1.35, 2.6, 15, 9, 3), barkMat);
   trunk.position.y = 7.5; trunk.castShadow = quality.shadows; trunk.receiveShadow = quality.shadows;
@@ -107,6 +109,7 @@ export function buildVegetation(scene, quality) {
     if (!validSpot(x, z, 12)) return;
     const y = heightAt(x, z);
     const s = 0.75 + rng() * 0.8;
+    colliders.push({ x, z, r: 0.48 * s + 0.12, y0: y, y1: y + 4.4 * s });
     tmp.position.set(x, y + 2 * s, z);
     tmp.rotation.set(0, rng() * TAU, (rng() - 0.5) * 0.1);
     tmp.scale.set(s, s * (0.9 + rng() * 0.5), s);
@@ -223,6 +226,7 @@ export function buildVegetation(scene, quality) {
       tmp.rotation.set((rng() - 0.5) * 0.5, rng() * TAU, (rng() - 0.5) * 0.5);
       tmp.scale.set(s * 0.6, s * 1.5, s * 0.6);
       tmp.updateMatrix(); crystals.setMatrixAt(cri, tmp.matrix);
+      colliders.push({ x, z, r: 0.5 * s, y0: h, y1: h + 1.5 * s });
       col.setHSL(0.5 + rng() * 0.22, 0.7, 0.6 + rng() * 0.2);
       crystals.setColorAt(cri, col); cri++;
     }
@@ -232,6 +236,7 @@ export function buildVegetation(scene, quality) {
 
   const cave = new THREE.Group();
   cave.position.set(-30, heightAt(-30, 22), 22);
+  colliders.push({ x: -30, z: 22, r: 5.2, y0: heightAt(-30, 22), y1: heightAt(-30, 22) + 5.6, support: true });
   const caveRock = new THREE.Mesh(new THREE.IcosahedronGeometry(5.5, 1), new THREE.MeshLambertMaterial({ color: 0x555f5c, flatShading: true }));
   caveRock.scale.set(1.2, 0.9, 1); caveRock.position.y = 3;
   cave.add(caveRock);
@@ -243,7 +248,7 @@ export function buildVegetation(scene, quality) {
   group.add(cave);
 
   return {
-    group, ancient,
+    group, ancient, colliders,
     update(dt, elapsed, night) {
       uniforms.uTime.value = elapsed;
       glow.intensity = 2.2 + Math.sin(elapsed * 1.4) * 0.3 + night * 1.4;

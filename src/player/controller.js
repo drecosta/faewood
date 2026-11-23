@@ -3,6 +3,8 @@ import { clamp, damp, lerp } from '../core/utils.js';
 import { Fairy } from './fairy.js';
 
 const START = new THREE.Vector3(6, 0, 8);
+const BODY_RADIUS = 0.34;
+const BODY_HEIGHT = 1.35;
 
 export class PlayerController {
   constructor(engine, world, input, audio, palette) {
@@ -71,6 +73,7 @@ export class PlayerController {
 
   teleport(x, y, z) {
     this.position.set(x, y ?? this.world.groundAt(x, z), z);
+    this.world.collision?.resolve(this.position, BODY_RADIUS, this.position.y, BODY_HEIGHT);
     this.velocity.set(0, 0, 0);
     this.flying = false; this.hoverLock = false;
     this.camTarget.copy(this.position);
@@ -139,10 +142,36 @@ export class PlayerController {
       this.energy = clamp(this.energy + (this.grounded ? 15 : 6) * dt, 0, 100);
     }
 
-    this.position.addScaledVector(this.velocity, dt);
-    this.world.collide(this.position, 0.35);
+    const prevFeet = this.position.y;
+    const dx = this.velocity.x * dt;
+    const dy = this.velocity.y * dt;
+    const dz = this.velocity.z * dt;
+    const steps = Math.max(1, Math.ceil(Math.max(Math.abs(dx), Math.abs(dy), Math.abs(dz)) / 0.28));
+    const sx = dx / steps, sy = dy / steps, sz = dz / steps;
+    for (let i = 0; i < steps; i++) {
+      this.position.x += sx;
+      this.position.z += sz;
+      this.world.collision?.resolve(this.position, BODY_RADIUS, this.position.y, BODY_HEIGHT);
+      this.world.collide(this.position, BODY_RADIUS);
 
-    const ground = this.world.groundAt(this.position.x, this.position.z);
+      const beforeY = this.position.y;
+      this.position.y += sy;
+      if (this.velocity.y > 0) {
+        const ceiling = this.world.collision?.ceilingAt(
+          this.position.x, this.position.z, this.position.y + BODY_HEIGHT,
+          beforeY + BODY_HEIGHT, BODY_RADIUS
+        );
+        if (ceiling !== undefined && this.position.y + BODY_HEIGHT > ceiling) {
+          this.position.y = ceiling - BODY_HEIGHT;
+          this.velocity.y = 0;
+        }
+      }
+    }
+
+    const ground = Math.max(
+      this.world.groundAt(this.position.x, this.position.z),
+      this.world.collision?.supportAt(this.position.x, this.position.z, this.position.y, prevFeet, BODY_RADIUS) ?? -Infinity
+    );
     if (this.position.y <= ground + 0.02) {
       if (!this.grounded && this.velocity.y < -18) {
         this.health = clamp(this.health - Math.min(28, (-this.velocity.y - 18) * 1.7), 1, 100);
